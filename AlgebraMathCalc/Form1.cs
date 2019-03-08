@@ -20,11 +20,6 @@ namespace AlgebraMathCalc
             InitializeComponent();
         }
 
-        private void diameter_textbox_circle_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void circle_submit_Click(object sender, EventArgs e)
         {
             // Gather all of the data from the text fields
@@ -74,37 +69,44 @@ namespace AlgebraMathCalc
             }
             if (circumference_checkBox_circle.Checked)
             {
-                if (diameter.Equals(null) && radius.Equals(null))
+                if ((diameter.Equals(null) || diameter.Equals(0)) && (radius.Equals(null) || radius.Equals(0)))
                 {
                     MessageBox.Show("You entered no value for Diameter or Radius.", "Mathematical Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     isErrorPresent = true;
                 }
-                if ((diameter.Equals(null) || (!radius.Equals(null))))
+                if ((diameter.Equals(null) || diameter.Equals(0)) && (!radius.Equals(null) || !radius.Equals(0)))
                 {
-                    circleResults[1] = 2 * (Math.PI * radius);
+                    circleResults[1] = Math.Round(2 * (Math.PI * radius), 2);
                 }
-                else if ((!diameter.Equals(null) || (radius.Equals(null))))
+                else if ((radius.Equals(null) || radius.Equals(0)) && (!diameter.Equals(null) || !diameter.Equals(0)))
                 {
-                    circleResults[1] = 2 * (Math.PI * (diameter / 2));
+                    circleResults[1] = Math.Round(2 * (Math.PI * (diameter / 2)), 2);
                 }
             }
             if (diameter_checkBox_circle.Checked)
             {
-                if (diameter.Equals(null) && radius.Equals(null))
+                if (diameter.Equals(0) && !radius.Equals(0))
                 {
-                    MessageBox.Show("You entered no value for Diameter or Radius.", "Mathematical Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    // 2xr = diameter
+                    circleResults[2] = Math.Round(2 * radius, 2);
+                }
+                if (!diameter.Equals(0) && radius.Equals(0))
+                {
+                    // diameter = d
+                    circleResults[2] = Math.Round(diameter, 2);
+                }
+                if (!diameter.Equals(0) && !radius.Equals(0))
+                {
+                    MessageBox.Show("Check your values for Diameter and Radius.", "Mathematical Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     isErrorPresent = true;
                 }
-                if ((diameter.Equals(null) || (!radius.Equals(null))))
+                else if (diameter.Equals(0) && radius.Equals(0))
                 {
-                    circleResults[2] = 2 * radius;
-                }
-                else if ((!diameter.Equals(null) || (radius.Equals(null))))
-                {
-                    circleResults[1] = diameter;
+                    MessageBox.Show("Check your values for Diameter and Radius.", "Mathematical Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    isErrorPresent = true;
                 }
             }
-            if(!diameter_checkBox_circle.Checked && !area_checkBox_circle.Checked && !circumference_checkBox_circle.Checked)
+            if (!diameter_checkBox_circle.Checked && !area_checkBox_circle.Checked && !circumference_checkBox_circle.Checked)
             {
                 MessageBox.Show("You need to select one of the formulas to apply to the data!", "Mathematical Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 isErrorPresent = true;
@@ -113,6 +115,64 @@ namespace AlgebraMathCalc
             {
                 // Display the data!
                 MessageBox.Show(string.Format("Area: {0}\nCircumference: {1}\nDiameter: {2}.", circleResults[0], circleResults[1], circleResults[2]), "Circle Results!", MessageBoxButtons.OK, MessageBoxIcon.None);
+            }
+        }
+
+        private void square_submit_Click(object sender, EventArgs e)
+        {
+            double side1 = 0;
+            double side2 = 0;
+            double side3 = 0;
+            double side4 = 0;
+
+            if (side1_textBox_square.Text.Length > 0)
+            {
+                side1 = Convert.ToDouble(side1_textBox_square.Text);
+            }
+            if (side2_textBox_square.Text.Length > 0)
+            {
+                side2 = Convert.ToDouble(side2_textBox_square.Text);
+            }
+            if (side3_textBox_square.Text.Length > 0)
+            {
+                side3 = Convert.ToDouble(side3_textBox_square.Text);
+            }
+            if (side4_textBox_square.Text.Length > 0)
+            {
+                side4 = Convert.ToDouble(side4_textBox_square.Text);
+            }
+            if (!side1.Equals(0) && !side2.Equals(0) && !side3.Equals(0) && !side4.Equals(0))
+            {
+                if (Array.TrueForAll<double>(new double[] { side1, side2, side3, side4 },
+                    val => (side1 == val)))
+                {
+                    // check to see if area or perimeter checked
+                    double[] squareResults = new double[2];
+                    if (square_area_checkBox.Checked)
+                    {
+                        squareResults[0] = Math.Pow(side1, 2);
+                    }
+                    if (square_perimeter_checkBox.Checked)
+                    {
+                        squareResults[1] = 4 * side1;
+                    }
+                    if (!square_area_checkBox.Checked && !square_perimeter_checkBox.Checked)
+                    {
+                        MessageBox.Show("You need to select a formula to apply. Area or Perimeter!", "Mathematical Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    if (!squareResults[0].Equals(0) || !squareResults[1].Equals(0))
+                    {
+                        MessageBox.Show(string.Format("Area: {0}\nPerimeter: {1}", squareResults[0], squareResults[1]), "Square Results!", MessageBoxButtons.OK, MessageBoxIcon.None);
+                    }
+                } else
+                {
+                    MessageBox.Show("All sides of a square are equal!", "Mathematical Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else
+            {
+                // you need to find all 4 sides
+                MessageBox.Show("You need to input all 4 sides of the square!", "Mathematical Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

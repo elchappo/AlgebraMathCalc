@@ -168,7 +168,6 @@ namespace AlgebraMathCalc
             // 
             resources.ApplyResources(this.diameter_textbox_circle, "diameter_textbox_circle");
             this.diameter_textbox_circle.Name = "diameter_textbox_circle";
-            this.diameter_textbox_circle.TextChanged += new System.EventHandler(this.diameter_textbox_circle_TextChanged);
             // 
             // label14
             // 
@@ -198,6 +197,7 @@ namespace AlgebraMathCalc
             resources.ApplyResources(this.square_submit, "square_submit");
             this.square_submit.Name = "square_submit";
             this.square_submit.UseVisualStyleBackColor = true;
+            this.square_submit.Click += new System.EventHandler(this.square_submit_Click);
             // 
             // square_perimeter_checkBox
             // 
