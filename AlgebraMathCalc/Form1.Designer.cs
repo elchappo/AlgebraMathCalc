@@ -275,6 +275,7 @@ namespace AlgebraMathCalc
             resources.ApplyResources(this.rectangle_submit, "rectangle_submit");
             this.rectangle_submit.Name = "rectangle_submit";
             this.rectangle_submit.UseVisualStyleBackColor = true;
+            this.rectangle_submit.Click += new System.EventHandler(this.rectangle_submit_Click);
             // 
             // label13
             // 
@@ -342,6 +343,7 @@ namespace AlgebraMathCalc
             resources.ApplyResources(this.triangle_submit, "triangle_submit");
             this.triangle_submit.Name = "triangle_submit";
             this.triangle_submit.UseVisualStyleBackColor = true;
+            this.triangle_submit.Click += new System.EventHandler(this.triangle_submit_Click);
             // 
             // pythagorean_checkBox
             // 

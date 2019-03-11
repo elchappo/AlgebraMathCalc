@@ -175,5 +175,53 @@ namespace AlgebraMathCalc
                 MessageBox.Show("You need to input all 4 sides of the square!", "Mathematical Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        private void rectangle_submit_Click(object sender, EventArgs e)
+        {
+
+            double width = 0;
+            double length = 0;
+
+            if (!width_textBox_rectangle.Equals(null) || !width_textBox_rectangle.Equals(0))
+            {
+                width = Convert.ToDouble(width_textBox_rectangle.Text);
+            }
+            if (!length_textBox_rectangle.Equals(null) || !length_textBox_rectangle.Equals(0))
+            {
+                length = Convert.ToDouble(length_textBox_rectangle.Text);
+            }
+
+            double[] rectangleAnswers = new double[2];
+
+            if (area_checkBox_rectangle.Checked && (!width.Equals(0) || !length.Equals(0)))
+            {
+                // calculate area if both length / width are > 0
+                rectangleAnswers[0] = length * width;
+            }
+            if (perimeter_checkBox_rectangle.Checked && (!width.Equals(0) || !length.Equals(0)))
+            {
+                // calculate perimeter if both length / width are > 0
+                rectangleAnswers[1] = ((2*length) + (2*width));
+            }
+            if (width.Equals(0) || length.Equals(0))
+            {
+                MessageBox.Show("You need to input both the length and width of the rectangle! (greater than 0)", "Mathematical Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            if (!perimeter_checkBox_rectangle.Checked && !area_checkBox_rectangle.Checked)
+            {
+                // throw an error to select a box.
+                MessageBox.Show("You need to select a formula to apply. Area or Perimeter!", "Mathematical Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+            {
+                // return all the infos
+                MessageBox.Show(string.Format("Area: {0}\nPerimeter: {1}", rectangleAnswers[0], rectangleAnswers[1]), "Rectangle Results!", MessageBoxButtons.OK, MessageBoxIcon.None);
+            }
+        }
+
+        private void triangle_submit_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
